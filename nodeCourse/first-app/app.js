@@ -10,6 +10,10 @@ console.log(`Total Memory: ${totalMemory}`);
 console.log(`Free Memory: ${freeMemory}`);
 
 //fs example
-const files = fs.readdirSync('./');
+// const files = fs.readdirSync('./');
+// console.log(`Files:  ${files}`);
 
-console.log(`Files:  ${files}`);
+fs.readdir('./', function(err, files){
+  if(err) console.log('Error ', err);
+  else console.log('Files ', files);
+})
