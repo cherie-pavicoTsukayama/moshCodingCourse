@@ -28,8 +28,15 @@ fs.readdir('./', function(err, files){
 */
 const emitter = new EventEmitter(); // here we are creating an instance of the EventEmitter class.
 // Regisert a listenter
-emitter.on('messageLogged', function(){
-  console.log ('Listener called')
+emitter.on('messageLogged', function(arg){ // or use an arrrow fucntion that would look like this 'message..., (arg) => {}
+  console.log ('Listener called ', arg)
 });
 //Raise an event
-emitter.emit('messageLogged') //emit means makings a nooise or porduce something... signaling that somehting has happend.
+emitter.emit('messageLogged', {id: 1, url: 'http://'}) //emit means makings a nooise or porduce something... signaling that somehting has happend.
+
+//Raise: loggin (data: message)
+const emitter1 = new EventEmitter()
+emitter1.on('messageLogged', (arg) =>{
+  console.log('Logging Example: ', arg);
+})
+emitter1.emit('messageLogged', {data: 'message'});
