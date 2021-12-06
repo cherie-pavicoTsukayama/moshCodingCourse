@@ -1,6 +1,7 @@
 const os = require('os');
 const fs = require('fs');
-const EventEmitter = require('events') //ths is a class that's why its first letter is capitolized and the word is camel cased.
+const EventEmitter = require('events'); //ths is a class that's why its first letter is capitolized and the word is camel cased.
+
 
 //OS example
 var totalMemory = os.totalmem();
@@ -40,3 +41,11 @@ emitter1.on('messageLogged', (arg) =>{
   console.log('Logging Example: ', arg);
 })
 emitter1.emit('messageLogged', {data: 'message'});
+
+/* Working with a custom class called Logger. See logger.js */
+const Logger = require('./logger');
+const logger = new Logger();
+logger.on('messageLogged ', (arg) => {
+  console.log('Logger Message: ', arg);
+});
+logger.log('message');
