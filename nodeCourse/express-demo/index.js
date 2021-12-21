@@ -14,12 +14,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/courses', (req, res) => {
-  res.send(cousres);
+  res.send(courses);
 });
 
-app.post('api/courses', (req, res) => {
+app.post('/api/courses', (req, res) => {
   const course = {
-    id:courses.length + 1,
+    id: courses.length + 1,
     name: req.body.name
   };
   courses.push(course);
