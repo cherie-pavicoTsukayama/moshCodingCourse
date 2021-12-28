@@ -21,12 +21,8 @@ app.get('/api/genres', (req, res) => {
 });
 
 app.get('/api/genres/:name', (req, res) => {
-  const name = '';
-  const reqName = req.params.name;
-  function formatName(reqName) {
-    return reqName.charAt(0) 
-  }
-  const genre = genres.find( c => c.name === name);
+  const reqName = req.params.name.toLocaleLowerCase();
+  const genre = genres.find(g => g.name.toLocaleLowerCase() === reqName);
   if (!genre) return res.status(404).send('Genre does not exist.');
   res.send(genre);
 });
