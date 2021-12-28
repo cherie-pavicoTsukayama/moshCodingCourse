@@ -27,5 +27,24 @@ app.get('/api/genres/:name', (req, res) => {
   res.send(genre);
 });
 
+app.post('/api/genres', (req, res) => {
+  const { error } = (validateGenre(req.body));
+  if (error) res.status(400).send(error.details[0].message);
+  let name = (bodyName) => {
+    const firstLetter = bodyName.shift();
+    return firstLetter;
+  }
+  console.log(name(req.body.name));
+
+
+})
+
+function validateGenre(genre) {
+  const schema = Joi.object({
+    name: Joi.string().min(3).required()
+  });
+  return schema.validate(genre);
+}
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
