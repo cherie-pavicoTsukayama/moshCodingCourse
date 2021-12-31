@@ -12,7 +12,7 @@ const genres = [
 ]
 
 //**Create an endpoint to get a list of all genres
-//Create a new genre
+//**Create a new genre
 //Update a genre
 //Delete an existing genre
 
@@ -52,6 +52,18 @@ app.post('/api/genres', (req, res) => {
   genres.push(genre);
 
   return res.status(201).send(genre);
+});
+
+app.put('/api/genres/:id', (req, res) => {
+  const reqId = parseInt(req.params.id);
+  const newName = req.body.name;
+  const genre = genres.find(g => g.id === reqId);
+  if (!genre) return res.status(404).send('The Genre with the given ID was not found.');
+
+  genre.name = newName;
+  return res.status(201).send(genre);
+
+
 })
 
 function validateGenre(genre) {
