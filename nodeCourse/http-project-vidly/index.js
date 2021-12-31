@@ -44,15 +44,13 @@ app.post('/api/genres', (req, res) => {
     }
   }
 
-
-
   const lastId = genres.slice(genres.length - 1)[0].id + 1;
   const genre = {
     id: lastId,
     name: name(reqName)
   }
-  console.log(lastId);
-  res.send(genre);
+
+  return res.status(201).send(genre);
 
 
 })
