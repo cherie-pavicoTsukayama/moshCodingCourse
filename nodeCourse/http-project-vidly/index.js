@@ -28,13 +28,31 @@ app.get('/api/genres/:name', (req, res) => {
 });
 
 app.post('/api/genres', (req, res) => {
+  const reqName = req.body.name;
+  const name = (bodyName) => {
+    const firstLetter = bodyName.split("")[0].toUpperCase();
+    const letters = bodyName.substring(1).toLowerCase();
+    return firstLetter + letters;
+  }
+
   const { error } = (validateGenre(req.body));
   if (error) res.status(400).send(error.details[0].message);
-  let name = (bodyName) => {
-    const firstLetter = bodyName.shift();
-    return firstLetter;
+
+  for( let i = 0; i < genres.length; i++ ) {
+    if (name(reqName) === genres[i].name) {
+      return res.status(200).send('That Genre already exists.')
+    }
   }
-  console.log(name(req.body.name));
+
+
+
+  const lastId = genres.slice(genres.length - 1)[0].id + 1;
+  const genre = {
+    id: lastId,
+    name: name(reqName)
+  }
+  console.log(lastId);
+  res.send(genre);
 
 
 })
