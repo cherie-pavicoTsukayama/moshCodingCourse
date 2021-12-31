@@ -49,10 +49,9 @@ app.post('/api/genres', (req, res) => {
     id: lastId,
     name: name(reqName)
   }
+  genres.push(genre);
 
   return res.status(201).send(genre);
-
-
 })
 
 function validateGenre(genre) {
