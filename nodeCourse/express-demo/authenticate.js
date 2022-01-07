@@ -1,6 +1,6 @@
 function authenticate (req, res, next) {
   console.log('Authenticating...');
-  next()
+  next();
 };
 
-module.export = authenticate;
+module.exports = authenticate;
