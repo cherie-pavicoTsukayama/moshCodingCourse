@@ -1,3 +1,4 @@
+const helmet = require('helmet');
 const Joi = require('joi');
 const logger = require('./logger');
 const authenticate = require('./authenticate');
@@ -8,6 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('nodeCourse/express-demo/public'));
+app.use(helmet());
 
 app.use(logger);
 
