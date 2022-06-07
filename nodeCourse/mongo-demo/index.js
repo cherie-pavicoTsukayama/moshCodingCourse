@@ -25,9 +25,23 @@ const courseSchema = new mongoose.Schema({
   //to create instances with that schema.
 
 const Course = mongoose.model('Coures', courseSchema);
-const course = new Course({
-  name: 'Node.js Course',
-  author: 'Mosh',
-  tags: [ 'node', 'backend' ],
-  isPublished: true
-})
+
+
+//save the Course instace into the database
+async function createCourse(){
+ try {
+   const course = new Course({
+     name: 'Angular Course',
+     author: 'Mosh',
+     tags: ['angular', 'frontend'],
+     isPublished: true
+   })
+   const result = await course.save(); //this is an asycn operation and so it will return a promise in the future.
+   console.log(result);
+ }
+ catch(err) {
+  console.log('Error:', err.message);
+ }
+}
+
+createCourse()
