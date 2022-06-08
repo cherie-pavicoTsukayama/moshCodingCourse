@@ -44,4 +44,21 @@ async function createCourse(){
  }
 }
 
-createCourse()
+//Querying Documents
+async function getCourses() {
+  const courses = await Course
+  .find( //this is a Class Method. It returns a Promise.
+   {//this is a filter where we can pass properties that are found in the document.
+    author: 'Mosh',
+    isPublished: true
+   })
+  .limit(10)//you can limit the query by 10 documents
+  .sort({ name: 1 })// uses key value pair to sort by. Value 1 = assending order. Value -1 = decending order.
+  .select({
+    name: 1,
+    tags: 1
+  })//you can select which property you want to return.
+  console.log (courses);
+}
+
+getCourses();
