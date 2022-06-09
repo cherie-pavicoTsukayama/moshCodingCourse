@@ -57,11 +57,13 @@ async function getCourses() {
     //nin (not in)
 
   const courses = await Course
-  .find( //this is a Class Method. It returns a Promise.
-   {//this is a filter where we can pass properties that are found in the document.
-    author: 'Mosh',
-    isPublished: true
-   })
+  // .find( //this is a Class Method. It returns a Promise.
+  //  {//this is a filter where we can pass properties that are found in the document.
+  //   author: 'Mosh',
+  //   isPublished: true
+  //  })
+  //.find ({price: { $gte:10, $lte: 20 }})// filtering for prices greater than or eaqal to 10 AND less than or equal to 20.
+  .find({ price: { $in: [10, 15, 20] } }) //filtering for prices that are IN the given array.
   .limit(10)//you can limit the query by 10 documents
   .sort({ name: 1 })// uses key value pair to sort by. Value 1 = assending order. Value -1 = decending order.
   .select({
