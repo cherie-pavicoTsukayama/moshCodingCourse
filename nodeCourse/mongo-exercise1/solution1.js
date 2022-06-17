@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost/mongo-exercises')
 
 const courseSchema = new mongoose.Schema({
   tags: [ String ],
-  date: { type: Date, default: Date.now },
+  date: Date,
   name: String,
   author: String,
   isPublished: Boolean,
@@ -16,11 +16,18 @@ const courseSchema = new mongoose.Schema({
 const Course = mongoose.model('Courses', courseSchema);
 
 async function getCourses() {
-const courses = await Course
-    .find()
+return await Course
+    .find({
+      isPublished: true,
+      tags: 'backend'
+    })
     .sort({ name: 1 })
     .select({ name: 1, author: 1 })
-    console.log(courses)
 }
 
-getCourses();
+async function run() {
+  const courses = await getCourses();
+  console.log('Courses', courses);
+}
+
+run();
