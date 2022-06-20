@@ -18,9 +18,11 @@ const Course = mongoose.model('Courses', courseSchema);
 
 async function getCourses() {
   return await Course
-    .find({ isPublished: true, tags: 'backend' })
+    .find( { isPublished: true })
+    .or([{tags: 'frontend'}, {tags: 'backend'}])
+    // .and( [{tags: /.*end.*/}] ) this code works as well as or.
     .sort({ price: -1 })
-    .select({ name: 1, author: 1 })
+    .select({ name: 1, author: 1, tags: 1, price: 1 })
 }
 
 async function run(){
