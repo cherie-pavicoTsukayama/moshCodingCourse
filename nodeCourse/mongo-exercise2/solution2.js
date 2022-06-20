@@ -1,4 +1,3 @@
-const { runMain } = require('module');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/mongo-exercises')
   .then(() => console.log('Connected to MongoDB...'))
@@ -18,11 +17,11 @@ const Course = mongoose.model('Courses', courseSchema);
 
 async function getCourses() {
   return await Course
-    .find( { isPublished: true })
+    .find({ isPublished: true })
     .or([{tags: 'frontend'}, {tags: 'backend'}])
     // .and( [{tags: /.*end.*/}] ) this code works as well as or.
-    .sort({ price: -1 })
-    .select({ name: 1, author: 1, tags: 1, price: 1 })
+    .sort('-price')
+    .select('name author tags price')
 }
 
 async function run(){
