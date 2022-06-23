@@ -59,17 +59,44 @@ async function getCourses() {
 }
 
 //Updating a Document Query First
-async function updateCourse(id) {
+async function updateCourseQueryFirst(id) {
  const course = await Course.findById(id);
- if (!course) return;
+ if (!course) {
+  console.log("Query First: Course Id is invalid");
+   return;
+ }
 
   course.isPublished = true;
   course.author = 'another author';
 
   const result = await course.save();
-  console.log(result);
+  console.log("Query Frist:", result);
  }
 
+updateCourseQueryFirst('629fe47b1a2448051f598387');
 
-updateCourse('629fe47b1a2448051f598383');
+//Updating a Document without Querying the database for it first.
+async function updateCourseOnly(id) {
+  const result = await Course.updateOne({ _id: id }, {
+    $set: {
+      isPublished: false,
+      author: "Mosh"
+    }
+  })
+  console.log("Updating a document without querying for it", result);
+}
 
+ updateCourseOnly('629fe47b1a2448051f598387')
+
+//Updating a Document and returning the updated document without Querying the database first.
+async function updateCourseAndReturn(id) {
+  const course = await Course.findByIdAndUpdate( id, {
+    $set: {
+      author: 'Jason',
+      isPublished: false
+    }
+  }, { new: true });
+  console.log('Update Document and return it:', course);
+}
+
+updateCourseAndReturn('629fe47b1a2448051f598383')
